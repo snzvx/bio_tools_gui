@@ -1,0 +1,25 @@
+"advanced nested scrolling system"
+I notice you have a scrollable_canvas.py file in the gui/ directory. This is exactly what we need for the advanced nested scrolling system.
+
+-------------------------------------------
+use "main application's scrollbar"
+
+Content appears in scrollable_canvas.scrollable_frame (your tools_parent).
+
+The output Frame :
+output to be shown in a "unified display area" , No section dividers .
+
+
+--------------------------
+Tool Integration: The ToolAreaManager places tools in a tool_wrapper frame using a pack_environment frame
+
+Scrolling: It uses a scrollable_canvas object
+
+Tool Parameters: Tools need to accept the parent frame and be integrated via pack() .
+----------------------------
+
+bioinformatics main program
+
+-------------------------------
+
+i want to add (cut , copy and paste and select all) to the input but in the output i would like ot have (copy and select all only) .

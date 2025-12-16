@@ -1,0 +1,258 @@
+bio_tools_gui/
+├── main.py                            # 🎯 Entry point that launches the main Tkinter app
+│
+├── gui/                               # 🪟 GUI Components (interface + layout logic)
+│   ├── __init__.py                    # Initializes the GUI package
+│   ├── frame_manager.py               # Handles frame switching between tools & home
+│   ├── scrollable_canvas.py           # Adds scrollable canvas functionality for tools
+│   ├── sidebar.py                     # Sidebar buttons & navigation system
+│   ├── tool_loader.py                 # Loads and initializes tool frames dynamically
+│   ├── tool_area_manager.py           # Manages tool display area (placement, resizing)
+│   ├── frame_display_controller.py    # Controls frame visibility & zoom prevention
+│   ├── zoom_fix_utilities.py          # Utilities to prevent accidental zooming in GUI
+│   ├── home_frame.py                  # Homepage layout with title + welcome section
+│   ├── widgets.py                     # Reusable custom widgets (buttons, outputs, etc.)
+│   └── styles.py                      # Centralized theme (fonts, colors, paddings)
+│
+├── tools/                             # 🧪 All analysis tools
+│   ├── __init__.py
+│   ├── nw_algorithm.py                # Needleman-Wunsch alignment (PDF-based visualization)
+│   ├── clustal_alignment.py           # Multiple sequence alignment using Clustal
+│   ├── pairwise_alignment.py          # Pairwise DNA/protein alignment
+│   ├── dna_rna_protein.py             # DNA ↔ RNA ↔ Protein translation tool
+│   ├── motif.py                       # DNA motif search & highlighting tool
+│   ├── Molarity_Calc.py               # Molarity and concentration calculator
+│   ├── rna_structure.py               # ⚠️ DEPRECATED: Old RNA structure tool (kept for compatibility)
+│   ├── dna_rna_calculator.py          # DNA/RNA-related small calculations
+│   ├── primer_calculator.py           # Primer melting temperature & length tool
+│   ├── phylogenetic_tree.py           # Build & visualize phylogenetic trees
+│   ├── orf_prediction.py              # Open reading frame (ORF) prediction tool
+│   │
+│   ├── rna_structure/                 # 🧬 Modular RNA secondary structure prediction tool
+│   │   ├── __init__.py                # Package initialization, exports main classes
+│   │   ├── gui_view.py                # 🖼️ Main GUI with input/output frames and tabs
+│   │   ├── structure_core.py          # 🧠 ViennaRNA integration for structure prediction
+│   │   ├── visualization.py           # 🎨 Professional RNA structure visualization (forgi)
+│   │   └── README.md                  # 📘 Documentation for RNA structure module
+│   │
+│   ├── restriction_enzyme/            # 🔬 Modular restriction enzyme analysis tool
+│   │   ├── __init__.py                # Makes this a subpackage
+│   │   ├── gui_view.py                # UI logic & buttons for restriction tool
+│   │   ├── dna_visual_map.py          # 🎨 Draws DNA + enzyme sites map
+│   │   ├── results_display.py         # Table view showing enzyme cuts summary
+│   │   └── tool_core.py               # Central control linking logic + GUI
+│   │
+│   ├── enzyme_logic/                  # 🧠 Backend enzyme logic used by restriction tool
+│   │   ├── __init__.py
+│   │   ├── enzymes.py                 # Defines enzyme recognition patterns
+│   │   ├── sequence.py                # Handles DNA sequence parsing & validation
+│   │   └── cutter.py                  # Computes enzyme cut sites in given sequences
+│   │
+│   └── database/                      # 🗄️ Database management tools
+│       │
+│       ├── sequence_db/               # 📊 Sequence Database Module
+│       │   ├── __init__.py            # Makes this a subpackage
+│       │   ├── sequence_db.py         # SQLite database operations for sequences
+│       │   ├── sequence_db_main.py    # Main GUI and navigation controller
+│       │   ├── sequence_db_form.py    # Submission and edit form GUI
+│       │   ├── sequence_db_results.py # Search results and display GUI
+│       │   └── sequence_db_tool.py    # Integration wrapper for main BTSA app
+│       │
+│       └── publication_db/            # 📚 Publication Database Module
+│           ├── __init__.py            # Makes this a subpackage
+│           ├── publication_db.py      # SQLite database operations for publications
+│           ├── publication_db_main.py # Main GUI and navigation controller
+│           ├── publication_db_form.py # Submission and edit form GUI (with IP tracking)
+│           ├── publication_db_results.py # Search results and display GUI
+│           ├── publication_db_pdf_viewer.py # PDF viewer using PyMuPDF
+│           ├── publication_db_logic.py # Additional database logic and utilities
+│           ├── publication_db_gui.py  # Alternative GUI implementation
+│           ├── publication_db_tool.py # Integration wrapper for main BTSA app
+│           └── ip_utils.py            # IP address detection utilities
+│
+├── utils/                             # ⚙️ Utilities & helper modules
+│   ├── __init__.py
+│   ├── pdf2image_viewer.py            # Renders PDF pages as images for viewing
+│   ├── pdfjs_embedded_viewer.py       # Legacy PDF.js embedded viewer (optional)
+│   ├── enhanced_pdf_manager.py        # Advanced PDF handling utilities
+│   ├── enhanced_text_formatter.py     # Improved text formatting & coloring utilities
+│   ├── pdf_manager.py                 # Original legacy PDF management (still supported)
+│   └── text_formatter.py              # Legacy text formatting helper
+│
+├── assets/                            # 🎨 Images & icons
+│   ├── Logo.ico                       # App icon
+│   ├── titlebg.jpg                    # Background image for home
+│   ├── back-button-md.png             # ⭐ Back button icon for navigation (USED IN DATABASE & RNA MODULES)
+│   ├── pdf_icon.png                   # Basic PDF button icon
+│   ├── pdf_icon_modern.png            # Modern flat-style PDF icon
+│   └── pdf_icon_minimal.png           # Minimal style PDF icon
+│
+├── docs/                              # 📄 Built-in scientific reference PDFs
+│   ├── A General Method Applicable to the Search for Similarities in the Amino Acid Sequence of Two Proteins.pdf
+│   ├── restriction_enzyme_paper.pdf   # Restriction enzyme reference paper
+│   ├── rna_structure_reference.pdf    # RNA folding algorithm reference (optional)
+│   ├── paper2.pdf                     # Additional supporting document
+│   ├── paper3.pdf
+│   ├── paper4.pdf
+│   ├── paper5.pdf
+│   ├── paper6.pdf
+│   └── paper7.pdf
+│
+├── data/                              # 💾 Database files (created at runtime)
+│   ├── sequences.db                   # SQLite database for sequence records
+│   └── publications.db                # SQLite database for publication records
+│
+├── downloads/                         # 📥 Downloaded/exported files (created at runtime)
+│   └── (exported PDFs, PNGs, and SVG files)
+│
+├── requirements.txt                   # 🧩 Python dependencies list
+└── README.md                          # 📘 Setup, usage, and contribution instructions
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                              TOOL NAVIGATION MENU
+═══════════════════════════════════════════════════════════════════════════════
+
+📊 Analysis Tools:
+   • Home
+   • NW Algorithm
+   • Sequence Alignment
+   • Phylogenetic Tree
+   • ORF Prediction
+   • Motif
+   • Restriction Mapping
+   • RNA Structure                → Advanced RNA secondary structure prediction
+   • DNA-RNA-Protein
+   • Primer Calculator
+   • DNA/RNA Calculator
+   • Molarity Calculator
+
+🗄️ Database Tools:
+   • Sequence Database       → Store DNA/RNA/Protein sequences with metadata
+   • Publication Database    → Manage scientific literature and references
+
+═══════════════════════════════════════════════════════════════════════════════
+                           KEY ARCHITECTURE NOTES
+═══════════════════════════════════════════════════════════════════════════════
+
+📁 RNA Structure Module Organization:
+   tools/rna_structure/
+   ├── __init__.py                    # Exports: RNAStructureFrame, RNAStructureCalculator, RNAStructureVisualizer
+   ├── gui_view.py                    # Main GUI with input/output frames, tabs, and navigation
+   ├── structure_core.py              # ViennaRNA wrapper for MFE prediction and ensemble analysis
+   └── visualization.py               # forgi-based professional visualization (RNAfold-style)
+
+   🔑 Key Features:
+   ✓ Predicts RNA secondary structure using ViennaRNA package
+   ✓ Calculates Minimum Free Energy (MFE) and ensemble energy
+   ✓ Professional circular/naview layout matching RNAfold web server
+   ✓ Export structures as PNG (300 DPI) or SVG (vector)
+   ✓ Dual-tab interface: structure output + diagram visualization
+   ✓ Back button navigation using assets/back-button-md.png
+   
+   📦 Dependencies:
+   - ViennaRNA (conda install -c bioconda viennarna)
+   - forgi (conda install -c conda-forge forgi)
+   - matplotlib (conda install matplotlib)
+   - Pillow (pip install pillow)
+
+📁 Database Module Organization:
+   - Each database tool is a self-contained module with:
+     ✓ Main GUI (navigation and frame management)
+     ✓ Form GUI (data entry and editing)
+     ✓ Results GUI (search and display)
+     ✓ Database backend (SQLite operations)
+     ✓ Tool wrapper (integration with main app)
+
+🖼️ Image Dependencies:
+   - Back button image: assets/back-button-md.png
+     Used by: sequence_db_main.py, publication_db_main.py, rna_structure/gui_view.py
+     Path calculation: project_root is "bio_tools_gui" / "assets" / "back-button-md.png"
+
+💾 Runtime Generated Directories:
+   - data/          → SQLite database files
+   - downloads/     → Exported PDFs, PNGs, SVG files
+   (Both created automatically when needed)
+
+⚙️ RNA Structure Module Integration:
+   To use in main app:
+```python
+   from tools.rna_structure import RNAStructureFrame
+   
+   # In your tool loader:
+   rna_frame = RNAStructureFrame(parent)
+```
+
+═══════════════════════════════════════════════════════════════════════════════
+                        RNA STRUCTURE MODULE DETAILS
+═══════════════════════════════════════════════════════════════════════════════
+
+📂 File Locations:
+   C:\Users\User\PycharmProjects\bio_tools_gui\tools\rna_structure\__init__.py
+   C:\Users\User\PycharmProjects\bio_tools_gui\tools\rna_structure\gui_view.py
+   C:\Users\User\PycharmProjects\bio_tools_gui\tools\rna_structure\structure_core.py
+   C:\Users\User\PycharmProjects\bio_tools_gui\tools\rna_structure\visualization.py
+
+🔧 Module Components:
+
+1. __init__.py
+   - Exports: RNAStructureFrame, RNAStructureCalculator, RNAStructureVisualizer
+   - Package initialization
+
+2. gui_view.py (RNAStructureFrame)
+   - Main GUI controller with grid-based layout
+   - Input frame: sequence entry, validation, prediction controls
+   - Output frame: tabbed interface with results and visualization
+   - Back button navigation with image support
+   - Threading for non-blocking structure prediction
+   - Error handling and progress indicators
+
+3. structure_core.py (RNAStructureCalculator)
+   - ViennaRNA integration for structure prediction
+   - MFE (Minimum Free Energy) calculation
+   - Ensemble energy and base pair probability
+   - Sequence validation (RNA/DNA)
+   - Temperature-dependent folding parameters
+   - Suboptimal structure prediction support
+
+4. visualization.py (RNAStructureVisualizer)
+   - forgi library integration for professional diagrams
+   - RNAfold-style circular (naview) layout
+   - Alternative simple layout option
+   - Matplotlib embedding in Tkinter
+   - Export to PNG (300 DPI) and SVG (vector)
+   - Fallback UI when dependencies missing
+   - Installation instructions display
+
+🎨 Visualization Styles:
+   • Circular (RNAfold) - Default naview algorithm layout
+   • Simple - Compact alternative layout
+
+💾 Export Formats:
+   • PNG - High-resolution raster (300 DPI, publication quality)
+   • SVG - Scalable vector graphics (editable in Inkscape/Illustrator)
+
+⚡ Features:
+   ✓ Real-time structure prediction
+   ✓ MFE frequency calculation
+   ✓ Professional publication-ready diagrams
+   ✓ Dot-bracket notation output
+   ✓ Energy decomposition
+   ✓ Interactive visualization controls
+   ✓ Graceful degradation without dependencies
+
+Important Tool integration :
+Tool Integration: The ToolAreaManager places tools in a tool_wrapper frame using a pack_environment frame
+
+Scrolling: It uses a scrollable_canvas object
+
+Tool Parameters: Tools need to accept the parent frame and be integrated via pack()
+
+-------------
+Main Frame/Tool Area: The tools are loaded into the main content area managed by tool_area_manager.py
+
+Loading Mechanism: Tools are loaded dynamically by tool_loader.py
+
+Scrolling System: Managed by scrollable_canvas.py
+
+═══════════════════════════════════════════════════════════════════════════════
